@@ -1,23 +1,45 @@
-import logo from './logo.svg';
+
+import Square from './components/Square';
+import {  useState } from 'react';
 import './App.css';
 
 function App() {
+  const [isPlayerOne, setIsPlayerOne] = useState(true);
+  const [gameTable, setGameTable] = useState(
+    [
+    null,null,null,
+    null,null,null,
+    null,null,null
+    ]);
+  
+  const handlePlayerChange = (val, num)=>{
+    const arrTbl = [...gameTable];
+    arrTbl[num] = val;
+    setGameTable(arrTbl);
+    setIsPlayerOne(!isPlayerOne);
+    console.log(gameTable);
+  }
+  
+  let tableNumber = 0;
+  
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
       </header>
+      <div className={'table'}>
+        <div className={'grid'}>
+          {gameTable.map( sqr => (
+            
+            <Square
+            key={tableNumber}
+            tblNum ={tableNumber++}
+            onChange={handlePlayerChange}
+            turnBool={isPlayerOne}
+            />
+            ))}      
+        </div>
+      </div>
     </div>
   );
 }
