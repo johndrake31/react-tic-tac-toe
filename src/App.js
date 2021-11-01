@@ -10,6 +10,7 @@ function App() {
   const [isPlayerOne, setIsPlayerOne] = useState(true);
   const [playerOneSqs, setPlayerOneSqs] = useState([]);
   const [playerTwoSqs, setPlayerTwoSqs] = useState([]);
+  const [gameOver, setGameOver] = useState(false)
   const [gameTable, setGameTable] = useState(
     [
       null, null, null,
@@ -17,47 +18,58 @@ function App() {
       null, null, null
     ]);
 
-  const handlePlayerChange = (val, num) => {
-    const arrTbl = [...gameTable];
-    arrTbl[num] = val;
+  const handleGamePlay = (val, num) => {
+    if (!gameOver) {
+      const arrTbl = [...gameTable];
+      arrTbl[num] = val;
 
-    if (isPlayerOne) {
-      const arrPlayer1 = [...playerOneSqs];
-      arrPlayer1.push(num);   
-      setPlayerOneSqs(()=>{
-        return arrPlayer1;
-      })
-      handleWinner(arrPlayer1);
-    }else{
-      const arrPlayer2 = [...playerTwoSqs];
-      arrPlayer2.push(num); 
-      setPlayerTwoSqs(()=>{
-        return arrPlayer2;
-      })
-      handleWinner(arrPlayer2);
+      if (isPlayerOne) {
+        const arrPlayer1 = [...playerOneSqs];
+        arrPlayer1.push(num);
+        setPlayerOneSqs(() => {
+          return arrPlayer1;
+        })
+        handleWinner(arrPlayer1);
+      } else {
+        const arrPlayer2 = [...playerTwoSqs];
+        arrPlayer2.push(num);
+        setPlayerTwoSqs(() => {
+          return arrPlayer2;
+        })
+        handleWinner(arrPlayer2);
+      }
+
+      setGameTable(() => {
+        return arrTbl
+      });
+
+      setIsPlayerOne(() => !isPlayerOne);
     }
-
-    setGameTable(() => {
-      return arrTbl
-    });
-    setIsPlayerOne(()=>!isPlayerOne);
   }
 
-  const handleWinner=(player)=> {
+  const handleWinner = (player) => {
     for (var i = 0; i < 8; i++) {
-        let won = win[i]
-        let inCommon = player.filter(x => won.includes(x));
-        if (inCommon.length === 3) {
-          isPlayerOne ? console.log("playerone win") : console.log('player2 win');
-          // endGameEvaluation();
-        }
+      let won = win[i]
+      let inCommon = player.filter(x => won.includes(x));
+      if (inCommon.length === 3) {
+        isPlayerOne ? console.log("playerone win") : console.log('player2 win');
+        endGameEvaluation();
+      }
     }
-}
+  }
+
+  const endGameEvaluation = () => {
+    setGameOver(true);
+  }
+
   const handleReset = () => {
     const newBoard = [null, null, null, null, null, null, null, null, null];
-    setGameTable(()=> {
+    setGameTable(() => {
       return newBoard
     })
+    setPlayerOneSqs([]);
+    setPlayerTwoSqs([]);
+    setGameOver(false);
   }
 
 
@@ -76,7 +88,7 @@ function App() {
                   key={tableNumber}
                   tdVal={gameTable[tableNumber]}
                   tblNum={tableNumber++}
-                  onChange={handlePlayerChange}
+                  onChange={handleGamePlay}
                   turnBool={isPlayerOne}
                 />
 
@@ -84,7 +96,7 @@ function App() {
                   key={tableNumber}
                   tdVal={gameTable[tableNumber]}
                   tblNum={tableNumber++}
-                  onChange={handlePlayerChange}
+                  onChange={handleGamePlay}
                   turnBool={isPlayerOne}
                 />
 
@@ -92,7 +104,7 @@ function App() {
                   key={tableNumber}
                   tdVal={gameTable[tableNumber]}
                   tblNum={tableNumber++}
-                  onChange={handlePlayerChange}
+                  onChange={handleGamePlay}
                   turnBool={isPlayerOne}
                 />
               </tr>
@@ -101,7 +113,7 @@ function App() {
                   key={tableNumber}
                   tdVal={gameTable[tableNumber]}
                   tblNum={tableNumber++}
-                  onChange={handlePlayerChange}
+                  onChange={handleGamePlay}
                   turnBool={isPlayerOne}
                 />
 
@@ -109,7 +121,7 @@ function App() {
                   key={tableNumber}
                   tdVal={gameTable[tableNumber]}
                   tblNum={tableNumber++}
-                  onChange={handlePlayerChange}
+                  onChange={handleGamePlay}
                   turnBool={isPlayerOne}
                 />
 
@@ -117,7 +129,7 @@ function App() {
                   key={tableNumber}
                   tdVal={gameTable[tableNumber]}
                   tblNum={tableNumber++}
-                  onChange={handlePlayerChange}
+                  onChange={handleGamePlay}
                   turnBool={isPlayerOne}
                 />
               </tr>
@@ -126,21 +138,21 @@ function App() {
                   key={tableNumber}
                   tdVal={gameTable[tableNumber]}
                   tblNum={tableNumber++}
-                  onChange={handlePlayerChange}
+                  onChange={handleGamePlay}
                   turnBool={isPlayerOne}
                 />
                 <Square
                   key={tableNumber}
                   tdVal={gameTable[tableNumber]}
                   tblNum={tableNumber++}
-                  onChange={handlePlayerChange}
+                  onChange={handleGamePlay}
                   turnBool={isPlayerOne}
                 />
                 <Square
                   key={tableNumber}
                   tdVal={gameTable[tableNumber]}
                   tblNum={tableNumber++}
-                  onChange={handlePlayerChange}
+                  onChange={handleGamePlay}
                   turnBool={isPlayerOne}
                 />
               </tr>
