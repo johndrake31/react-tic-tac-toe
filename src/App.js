@@ -72,14 +72,21 @@ function App() {
     setGameOver(false);
   }
 
-
+  const playerTurn = (
+    isPlayerOne ? <div className="joueur1" id="player-turn">"P1: Your Turn !"</div> : <div className="joueur2" id="player-turn">"P2: Your Turn !"</div>
+  )
+  const gameWinMsg = (
+    !isPlayerOne ? 'Player1 wins':'Player2 wins'
+  )
 
   return (
     <div className="container">
+
       <div className="row">
         <div className="col">
           <h1>Morpion</h1>
           <div id="result"></div>
+          {!gameOver && playerTurn}
           <table className="table-style">
 
             <tbody>
@@ -163,20 +170,15 @@ function App() {
             id="new-game">
             New Game
           </button>
-          <div id="player-turn"></div>
-          <div id="p1"></div>
-          <div id="p2"></div>
-          <div id="total"></div>
+
+          
           <div id="root">
-            <div id="resultMessage"></div>
-
+            <div id="resultMessage">{gameOver && gameWinMsg}</div>
           </div>
-
-
-
-
         </div>
       </div>
+      {/* add a score board? maybe? */}
+      {/* add optional login? maybe? */}
     </div>
   );
 }

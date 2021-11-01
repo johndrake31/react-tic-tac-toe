@@ -24,7 +24,7 @@ body {
   font-weight: 500;
   width: 300px;
   position: absolute;
-  top: 200px;
+  top: 400px;
   left: -50px;
 }
 
@@ -36,7 +36,7 @@ body {
   font-weight: 500;
   width: 300px;
   position: absolute;
-  top: 200px;
+  top: 400px;
   right: -50px;
 }
 
@@ -130,7 +130,7 @@ td {
 #resultMessage {
   position: relative;
   bottom: 370px;
-  font-weight: 600;
+  font-weight: 500;
   text-decoration: none;
   color: white;
   text-align: center;
