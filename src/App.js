@@ -4,7 +4,12 @@ import { useState } from 'react';
 import './App.css';
 
 function App() {
+  const win = ["012", "345", "678", "036", "147", "258", "048", "246"];
+  let tableNumber = 0;
+
   const [isPlayerOne, setIsPlayerOne] = useState(true);
+  const [playerOneSqs, setPlayerOneSqs] = useState([]);
+  const [playerTwoSqs, setPlayerTwoSqs] = useState([]);
   const [gameTable, setGameTable] = useState(
     [
       null, null, null,
@@ -15,12 +20,39 @@ function App() {
   const handlePlayerChange = (val, num) => {
     const arrTbl = [...gameTable];
     arrTbl[num] = val;
+
+    if (isPlayerOne) {
+      const arrPlayer1 = [...playerOneSqs];
+      arrPlayer1.push(num);   
+      setPlayerOneSqs(()=>{
+        return arrPlayer1;
+      })
+      handleWinner(arrPlayer1);
+    }else{
+      const arrPlayer2 = [...playerTwoSqs];
+      arrPlayer2.push(num); 
+      setPlayerTwoSqs(()=>{
+        return arrPlayer2;
+      })
+      handleWinner(arrPlayer2);
+    }
+
     setGameTable(() => {
       return arrTbl
     });
     setIsPlayerOne(()=>!isPlayerOne);
   }
 
+  const handleWinner=(player)=> {
+    for (var i = 0; i < 8; i++) {
+        let won = win[i]
+        let inCommon = player.filter(x => won.includes(x));
+        if (inCommon.length === 3) {
+          isPlayerOne ? console.log("playerone win") : console.log('player2 win');
+          // endGameEvaluation();
+        }
+    }
+}
   const handleReset = () => {
     const newBoard = [null, null, null, null, null, null, null, null, null];
     setGameTable(()=> {
@@ -28,7 +60,6 @@ function App() {
     })
   }
 
-  let tableNumber = 0;
 
 
   return (
